@@ -46,14 +46,22 @@ struct TrebleClefView: View {
                     .frame(width: 120, height: 120)
                     .padding(.trailing, -50)
                     .padding(.leading, -60)
-                ForEach(0..<32) { _ in
-                    VStack(spacing: 20) {
+                ForEach(1...33, id: \.self) { measure in
+                    VStack(alignment: .leading, spacing: 20) {
+                        Text("\(measure)")
+                            .font(.caption)
+                            .foregroundColor(.black)
+                            .padding(.bottom, -20)
+                            .padding(.leading, 5)
+
                         ForEach(0..<5) { _ in
                             Staff()
                         }
                     }
-                    MeasureLine()
-                    .padding(.trailing, 120)
+                    .padding(.top, -20)
+                    .frame(width: 120, alignment: .leading)
+                    .overlay(MeasureLine())
+                    .padding(.leading, 40)
                 }
             }
         }
