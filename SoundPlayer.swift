@@ -8,17 +8,26 @@
 import AVFoundation
 
 class SoundPlayer {
-    var audioPlayer: AVAudioPlayer?
-
-    func playSound(fileName: String) {
-        guard let path = Bundle.main.path(forResource: fileName, ofType: "wav") else { return }
-        let url = URL(fileURLWithPath: path)
-        
-        do {
-            audioPlayer = try AVAudioPlayer(contentsOf: url)
-            audioPlayer?.play()
-        } catch {
-            print("Error playing sound: \(error.localizedDescription)")
+    var audioPlayers: [AVAudioPlayer] = []
+    
+    func play(sounds: [String]) {
+        for sound in sounds {
+            // Load sound file
+            guard let soundURL = Bundle.main.url(forResource: sound, withExtension: "wav") else {
+                print("Sound file not found")
+                return
+            }
+            
+            do {
+                // Create audio player and play sound
+                let audioPlayer = try AVAudioPlayer(contentsOf: soundURL)
+                audioPlayer.play()
+                
+                // Add audio player to array
+                audioPlayers.append(audioPlayer)
+            } catch {
+                print("Error playing sound: \(error.localizedDescription)")
+            }
         }
     }
 }
