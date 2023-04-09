@@ -29,6 +29,16 @@ struct MeasureLine: View {
     }
 }
 
+struct QuarterNote: View {
+    var body: some View {
+        Image("quarternote")
+            .resizable()
+            .scaledToFit()
+            .frame(width:20, height: 20)
+    }
+}
+
+
 struct TrebleClefView: View {
     var body: some View {
         ScrollView(.horizontal) {
@@ -57,13 +67,44 @@ struct TrebleClefView: View {
                         ForEach(0..<5) { _ in
                             Staff()
                         }
+
+                        ZStack {
+                            VStack {
+                                HStack {
+                                    // beat 1
+                                    QuarterNote()
+                                        .padding(.top, -42)
+                                        .padding(.leading, 20)
+                                    Spacer()
+                                    
+                                    // beat 2
+                                    QuarterNote()
+                                        .padding(.top, -42)
+                                        .padding(.leading, 20)
+                                    Spacer()
+                                    
+                                    // beat 3
+                                    QuarterNote()
+                                        .padding(.top, -42)
+                                        .padding(.leading, 20)
+                                    Spacer()
+                                    
+                                    // beat 4
+                                    QuarterNote()
+                                        .padding(.top, -42)
+                                        .padding(.leading, 20)
+                                    }
+                                
+                                
+                                }
+                            }
+                        }
                     }
-                    .padding(.top, -20)
-                    .frame(width: 120, alignment: .leading)
+                    .frame(width: 160, alignment: .leading)
                     .overlay(MeasureLine())
-                    .padding(.leading, 40)
+                    .padding(.leading, 30)
                 }
             }
         }
     }
-}
+
