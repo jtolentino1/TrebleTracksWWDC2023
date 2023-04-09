@@ -22,6 +22,6 @@ struct ContentView: View {
 //            Text("Play")
 //        }
         
-        TrebleClefView()
+        ButtonGridView()
     }
 }
