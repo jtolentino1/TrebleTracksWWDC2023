@@ -31,29 +31,31 @@ struct MeasureLine: View {
 
 struct TrebleClefView: View {
     var body: some View {
-        HStack {
-            Image("trebleclef")
-                .resizable()
-                .scaledToFit()
-                .foregroundColor(.black)
-                .frame(width: 175, height: 175)
-            Image("44timesignature")
-                .resizable()
-                .scaledToFit()
-                .foregroundColor(.black)
-                .frame(width: 120, height: 120)
-                .padding(.horizontal, -90)
-            VStack(spacing: 20) {
-                ForEach(0..<5) { _ in
-                    Staff()
+        ScrollView(.horizontal) {
+            HStack(spacing: 20) {
+                Image("trebleclef")
+                    .resizable()
+                    .scaledToFit()
+                    .foregroundColor(.black)
+                    .frame(width: 175, height: 175)
+                    .padding(.horizontal, -50)
+                Image("44timesignature")
+                    .resizable()
+                    .scaledToFit()
+                    .foregroundColor(.black)
+                    .frame(width: 120, height: 120)
+                    .padding(.trailing, -50)
+                    .padding(.leading, -60)
+                ForEach(0..<32) { _ in
+                    VStack(spacing: 20) {
+                        ForEach(0..<5) { _ in
+                            Staff()
+                        }
+                    }
+                    MeasureLine()
+                    .padding(.trailing, 120)
                 }
             }
-            MeasureLine()
-                .padding(.horizontal, -100)
-            MeasureLine()
-                .padding(.horizontal, -40)
-
         }
-        .padding(.horizontal, -40)
     }
 }
