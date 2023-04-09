@@ -9,6 +9,7 @@ import AVFoundation
 
 class SoundPlayer {
     var audioPlayers: [AVAudioPlayer] = []
+    var isPlaying: Bool = false
     
     func play(sounds: [String]) {
         for sound in sounds {
@@ -21,10 +22,12 @@ class SoundPlayer {
                 let audioPlayer = try AVAudioPlayer(contentsOf: soundURL)
                 audioPlayer.play()
                 audioPlayers.append(audioPlayer)
+                print("started playing")
             } catch {
                 print("Error playing sound: \(error.localizedDescription)")
             }
         }
+        
     }
     
     func playMatrix(matrix: [[Int]], bpm: Int) {
@@ -32,6 +35,15 @@ class SoundPlayer {
         let lowestNoteOctave = 4
         let highestNoteOctave = 6
         
+        let session = AVAudioSession.sharedInstance()
+        do {
+            try session.setCategory(.playback, mode: .default, options: .mixWithOthers)
+            try session.setActive(true)
+        } catch {
+            print("Error setting up audio session: \(error.localizedDescription)")
+        }
+        
+        isPlaying = true
         for columnIndex in 0..<matrix[0].count {
             var notesToPlay: [String] = []
             for rowIndex in 0..<matrix.count {
@@ -43,11 +55,15 @@ class SoundPlayer {
                     notesToPlay.append(note)
                 }
             }
-            play(sounds: notesToPlay)
+            DispatchQueue.global().async {
+                self.play(sounds: notesToPlay)
+            }
             
             // us = 60,000,000 / BPM
             // so this delay right now is 300 BPM (quarter notes)
             usleep(useconds_t(60000000/bpm))
         }
+        isPlaying = false
+
     }
 }

@@ -11,12 +11,23 @@ struct ButtonGridView: View {
     
     // Dimensions of the grid
     let rowCount = 15
+    var soundPlayer = SoundPlayer()
     let colCount = 128
     
     // Matrix to store button states, initialized to all 0's
     @State private var buttonStates: [[Int]] = Array(repeating: Array(repeating: 0, count: 128), count: 15)
     
     var body: some View {
+                Button(action: {
+        
+                    // Call play function in SoundPlayer with name of .wav file(s)
+                    // soundPlayer.play(sounds: ["C4", "E4", "G4", "B4"])
+        
+                    soundPlayer.playMatrix(matrix: buttonStates, bpm: 300)
+        //            soundPlayer.playMatrix(matrix: MusicData.chordTest, bpm: 130)
+                }) {
+                    Text("Play")
+                }
         ScrollView(.horizontal) {
             VStack(spacing: 0) {
                 ForEach(0..<15) { row in
