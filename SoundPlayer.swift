@@ -27,7 +27,7 @@ class SoundPlayer {
         }
     }
     
-    func playMatrix(matrix: [[Int]]) {
+    func playMatrix(matrix: [[Int]], bpm: Int) {
         let noteNames = ["C", "D", "E", "F", "G", "A", "B"]
         let lowestNoteOctave = 4
         let highestNoteOctave = 6
@@ -47,7 +47,7 @@ class SoundPlayer {
             
             // us = 60,000,000 / BPM
             // so this delay right now is 300 BPM (quarter notes)
-            usleep(useconds_t(200000))
+            usleep(useconds_t(60000000/bpm))
         }
     }
 }

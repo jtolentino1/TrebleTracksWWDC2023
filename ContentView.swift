@@ -16,8 +16,8 @@ struct ContentView: View {
             // Call play function in SoundPlayer with name of .wav file(s)
             // soundPlayer.play(sounds: ["C4", "E4", "G4", "B4"])
             
-            // soundPlayer.playMatrix(matrix: MusicData.swingMelody)
-            
+            soundPlayer.playMatrix(matrix: MusicData.swingMelody, bpm: 300)
+//            soundPlayer.playMatrix(matrix: MusicData.chordTest, bpm: 130)
         }) {
             Text("Play")
         }
