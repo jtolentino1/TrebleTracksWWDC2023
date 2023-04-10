@@ -30,5 +30,6 @@ struct ContentView: View {
         }
         
 //        ButtonGridView()
+        TrebleClefView()
     }
 }
