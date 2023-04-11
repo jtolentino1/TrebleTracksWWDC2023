@@ -39,7 +39,7 @@ struct ButtonGridView: View {
                                 Image("quarternote")
                                     .resizable()
                                     .frame(width: 20, height: 20)
-                                    .opacity(buttonStates[row][col] == 1 ? 1.0 : 0.5)
+                                    .opacity(buttonStates[row][col] == 1 ? 1.0 : 0)
                             }
                         }
                     }
