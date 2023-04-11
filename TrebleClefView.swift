@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import Foundation
 
 struct Staff: View {
     var body: some View {
@@ -45,10 +46,9 @@ struct TrebleClefView: View {
     // in between each measure = 66
     @State private var scrollerOffset: CGFloat = 0
     @State private var scrollCounter: CGFloat = 1
-    @State private var scrollable: Bool = false
+    @State private var scrollable: Bool = true
     @State private var scrollViewCounter: CGFloat = 1
-    @State private var bpm = 300
-    
+    @State private var bpm = 150
     // debugging
     var soundPlayer = SoundPlayer()
         
@@ -70,14 +70,8 @@ struct TrebleClefView: View {
         }
 
         scrollViewCounter += 1
-        withAnimation {
-            updateScroller()
-        }
-        if (scrollViewCounter < 128) {
-            DispatchQueue.main.asyncAfter(deadline: .now() + (Double(60000000/bpm) / 1000000)) {
-                updateScrollView()
-            }
-        }
+        
+        updateScroller()
     }
 
 
@@ -114,11 +108,19 @@ struct TrebleClefView: View {
                                 ZStack {
                                     VStack {
                                         HStack {
+                                            // 11 between notes
+                                            // C6 = -163
+                                            // ...
+                                            // F4 = -42
+                                            // E4 = -31
+                                            // D4 = -20
+                                            // C4 = -9
+                                            
                                             // beat 1
                                             QuarterNote()
                                                 .padding(
                                                     .top,
-                                                    -42
+                                                    -20
                                                 )
                                                 .padding(
                                                     .leading,
@@ -130,7 +132,7 @@ struct TrebleClefView: View {
                                             QuarterNote()
                                                 .padding(
                                                     .top,
-                                                    -42
+                                                    -20
                                                 )
                                                 .padding(
                                                     .leading,
@@ -175,31 +177,41 @@ struct TrebleClefView: View {
                         scrollView.scrollTo(0, anchor: .leading)
                     }
                     .onChange(of: scrollViewOffset.x) { value in
-                        withAnimation(Animation.easeInOut(duration: Double(60000000/bpm) / 1000000)) {
+                        withAnimation {
                             scrollView.scrollTo(Int(value))
                         }
                     }
                 }
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
                 .background(
                     GeometryReader { geo in
                         Rectangle()
                             .foregroundColor(.black)
                             .opacity(0.15)
-                            .frame(width: 20, height: 140)
+                            .frame(width: 20, height: 200)
                             .offset(
                                 x: CGFloat(scrollerOffset + 175),
                                 y: 20)
                     }
                 )
             }
+            .disabled(scrollable)
 
             HStack {
                 Spacer()
                 Button(
                     action: {
-                        updateScrollView()
+                        Timer.scheduledTimer(withTimeInterval: (Double(60000000) / Double(bpm)) / 1000000, repeats: true) { timer in
+                            
+                            updateScrollView()
+                            // Stop the timer after it has been called 128 times
+                            if timer.fireDate.timeIntervalSinceNow < -(Double(60000000) / Double(bpm)) / 1000000 * 128 {
+                                timer.invalidate()
+                            }
+                        }
+                        
                         DispatchQueue.global(qos: .userInteractive).async {
-                            soundPlayer.playMatrix(matrix: MusicData.swingMelody, bpm: 300)
+                            soundPlayer.playMatrix(matrix: MusicData.swingMelody, bpm: bpm)
                         }
                     },
                     label: {
@@ -210,5 +222,6 @@ struct TrebleClefView: View {
                 .padding(.trailing, 20)
             }
         }
+        .frame(height: 280)
     }
 }

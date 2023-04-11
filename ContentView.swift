@@ -17,7 +17,7 @@ struct ContentView: View {
             // soundPlayer.play(sounds: ["C4", "E4", "G4", "B4"])
             if(soundPlayer.isPlaying == false){
                 DispatchQueue.global().async {
-                    soundPlayer.playMatrix(matrix: MusicData.swingMelody, bpm: 300)
+                    soundPlayer.playMatrix(matrix: MusicData.swingMelody, bpm: 150)
                 }
             } else {
                 print("sound player is already playing..")
@@ -29,6 +29,13 @@ struct ContentView: View {
             Text("Play")
         }
         
+        Button(action: {
+            DispatchQueue.global().async {
+                soundPlayer.play(sounds: ["C4"])
+            }
+        }) {
+            Text("Play C4")
+        }
 //        ButtonGridView()
         TrebleClefView()
     }
