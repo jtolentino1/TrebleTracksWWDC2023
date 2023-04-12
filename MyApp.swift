@@ -11,8 +11,16 @@ import SwiftUI
 struct MyApp: App {
     var body: some Scene {
         WindowGroup {
-            ButtonGridView()
+            ContentView()
+                .frame(width: 1024, height: 760)
                 .preferredColorScheme(.light)
+            
+                .onAppear {
+                    guard let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene else { return }
+                    windowScene.sizeRestrictions?.minimumSize = CGSize(width: 1024, height: 760)
+                    windowScene.sizeRestrictions?.maximumSize = CGSize(width: 1024, height: 760)
+                }
+            
         }
     }
 }

@@ -10,6 +10,7 @@ import AVFoundation
 class SoundPlayer {
     var audioPlayers: [AVAudioPlayer] = []
     var isPlaying: Bool = false
+    var interrupted: Bool = false
     
     func play(sounds: [String]) {
         for sound in sounds {
@@ -22,7 +23,6 @@ class SoundPlayer {
                 let audioPlayer = try AVAudioPlayer(contentsOf: soundURL)
                 audioPlayer.play()
                 audioPlayers.append(audioPlayer)
-                print("started playing")
             } catch {
                 print("Error playing sound: \(error.localizedDescription)")
             }
@@ -45,6 +45,9 @@ class SoundPlayer {
         
         isPlaying = true
         for columnIndex in 0..<matrix[0].count {
+            if interrupted {
+                break
+            }
             var notesToPlay: [String] = []
             for rowIndex in 0..<matrix.count {
                 if matrix[rowIndex][columnIndex] == 1 {
@@ -65,5 +68,21 @@ class SoundPlayer {
         }
         isPlaying = false
 
+    }
+    
+    func stop() {
+        
+        interrupted = true
+        
+        for player in audioPlayers {
+            player.stop()
+        }
+        
+        audioPlayers.removeAll()
+        
+        while(isPlaying){
+            print("SoundPlayer for isPlaying flag to be set to false before disabling interrupt...")
+        }
+        interrupted = false
     }
 }

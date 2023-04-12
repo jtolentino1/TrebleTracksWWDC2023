@@ -41,14 +41,16 @@ struct QuarterNote: View {
 
 struct TrebleClefView: View {
     @State private var scrollViewOffset: CGPoint = .zero
-
     // in between each notes = 48
     // in between each measure = 66
     @State private var scrollerOffset: CGFloat = 0
     @State private var scrollCounter: CGFloat = 1
     @State private var scrollable: Bool = true
     @State private var scrollViewCounter: CGFloat = 1
-    @State private var bpm = 150
+    @State private var stoppedFlag: Bool = false
+    @State private var bpm = 300
+    @State private var resetScroll: Bool = false
+    
     // debugging
     var soundPlayer = SoundPlayer()
         
@@ -63,15 +65,18 @@ struct TrebleClefView: View {
     
     func updateScrollView() {
         if (scrollViewCounter == 1) {
-            scrollViewOffset.x += 2
+            scrollViewOffset.x += 5
         }
-        if (scrollViewCounter.truncatingRemainder(dividingBy: 4) == 0) {
-            scrollViewOffset.x += 1
+
+        if (scrollViewCounter.truncatingRemainder(dividingBy: 8) == 0) {
+            scrollViewOffset.x += 2
         }
 
         scrollViewCounter += 1
         
-        updateScroller()
+        withAnimation(.easeOut(duration: (Double(60000000) / Double(bpm*8)) / 1000000)){
+            updateScroller()
+        }
     }
 
 
@@ -86,6 +91,7 @@ struct TrebleClefView: View {
                             .foregroundColor(.black)
                             .frame(width: 175, height: 175)
                             .padding(.horizontal, -50)
+                            .id("trebleclefanchor")
                         Image("44timesignature")
                             .resizable()
                             .scaledToFit()
@@ -177,8 +183,12 @@ struct TrebleClefView: View {
                         scrollView.scrollTo(0, anchor: .leading)
                     }
                     .onChange(of: scrollViewOffset.x) { value in
-                        withAnimation {
-                            scrollView.scrollTo(Int(value))
+                        withAnimation{
+                            if(value == 0){
+                                scrollView.scrollTo("trebleclefanchor", anchor: .leading)
+                            } else {
+                                scrollView.scrollTo(Int(value))
+                            }
                         }
                     }
                 }
@@ -195,30 +205,59 @@ struct TrebleClefView: View {
                     }
                 )
             }
-            .disabled(scrollable)
+            .disabled(false)
 
             HStack {
                 Spacer()
                 Button(
                     action: {
+                        
+                        if(resetScroll){
+                            scrollViewOffset.x = .zero
+                        }
+                        
+                        // initializers
+                        scrollerOffset = 0
+                        scrollCounter = 1
+                        scrollViewCounter = 1
+                        stoppedFlag = false
+                        
                         Timer.scheduledTimer(withTimeInterval: (Double(60000000) / Double(bpm)) / 1000000, repeats: true) { timer in
                             
                             updateScrollView()
-                            // Stop the timer after it has been called 128 times
-                            if timer.fireDate.timeIntervalSinceNow < -(Double(60000000) / Double(bpm)) / 1000000 * 128 {
+                            
+                            // Stop the timer after it has been called 128 times or stoppedFlag is true
+                            if ((scrollCounter == 128) || (stoppedFlag == true)){
                                 timer.invalidate()
                             }
                         }
                         
-                        DispatchQueue.global(qos: .userInteractive).async {
-                            soundPlayer.playMatrix(matrix: MusicData.swingMelody, bpm: bpm)
-                        }
+//                        DispatchQueue.global(qos: .userInteractive).async {
+//                            soundPlayer.playMatrix(matrix: MusicData.swingMelody, bpm: bpm)
+//                        }
                     },
                     label: {
                         Image(systemName: "arrow.right")
                             .foregroundColor(.black)
                     }
                 )
+                Button(
+                    action: {
+                        stoppedFlag = true
+                        soundPlayer.stop()
+                    },
+                    label: {
+                        Image(systemName: "stop")
+                            .foregroundColor(.black)
+                    })
+                Button(
+                    action: {
+                        scrollViewOffset.x = .zero
+                    },
+                    label: {
+                        Image(systemName: "arrow.left")
+                            .foregroundColor(.black)
+                    })
                 .padding(.trailing, 20)
             }
         }
