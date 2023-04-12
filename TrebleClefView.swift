@@ -49,7 +49,7 @@ struct TrebleClefView: View {
     @State private var scrollViewCounter: CGFloat = 1
     @State private var stoppedFlag: Bool = false
     @State private var bpm = 300
-    @State private var resetScroll: Bool = false
+    @State private var isPlaying: Bool = false
     
     // debugging
     var soundPlayer = SoundPlayer()
@@ -65,7 +65,7 @@ struct TrebleClefView: View {
     
     func updateScrollView() {
         if (scrollViewCounter == 1) {
-            scrollViewOffset.x += 5
+            scrollViewOffset.x += 1
         }
 
         if (scrollViewCounter.truncatingRemainder(dividingBy: 8) == 0) {
@@ -184,7 +184,8 @@ struct TrebleClefView: View {
                     }
                     .onChange(of: scrollViewOffset.x) { value in
                         withAnimation{
-                            if(value == 0){
+                            if(value == .zero){
+                                print("scrolling to original")
                                 scrollView.scrollTo("trebleclefanchor", anchor: .leading)
                             } else {
                                 scrollView.scrollTo(Int(value))
@@ -205,27 +206,26 @@ struct TrebleClefView: View {
                     }
                 )
             }
-            .disabled(false)
+            
+            .disabled(isPlaying)
 
             HStack {
                 Spacer()
                 Button(
                     action: {
                         
-                        if(resetScroll){
-                            scrollViewOffset.x = .zero
-                        }
+                        scrollViewOffset.x = 0
                         
                         // initializers
                         scrollerOffset = 0
                         scrollCounter = 1
                         scrollViewCounter = 1
                         stoppedFlag = false
+                        isPlaying = true
                         
                         Timer.scheduledTimer(withTimeInterval: (Double(60000000) / Double(bpm)) / 1000000, repeats: true) { timer in
                             
                             updateScrollView()
-                            
                             // Stop the timer after it has been called 128 times or stoppedFlag is true
                             if ((scrollCounter == 128) || (stoppedFlag == true)){
                                 timer.invalidate()
@@ -241,10 +241,12 @@ struct TrebleClefView: View {
                             .foregroundColor(.black)
                     }
                 )
+                .disabled(isPlaying)
                 Button(
                     action: {
                         stoppedFlag = true
                         soundPlayer.stop()
+                        isPlaying =
                     },
                     label: {
                         Image(systemName: "stop")
@@ -252,10 +254,12 @@ struct TrebleClefView: View {
                     })
                 Button(
                     action: {
-                        scrollViewOffset.x = .zero
+                        scrollViewOffset.x = 0
+                        scrollerOffset = 0
+                        scrollCounter = 1
                     },
                     label: {
-                        Image(systemName: "arrow.left")
+                        Image(systemName: "arrow.clockwise")
                             .foregroundColor(.black)
                     })
                 .padding(.trailing, 20)
