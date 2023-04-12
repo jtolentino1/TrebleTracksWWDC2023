@@ -17,10 +17,9 @@ struct MyApp: App {
             
                 .onAppear {
                     guard let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene else { return }
-                    windowScene.sizeRestrictions?.minimumSize = CGSize(width: 1024, height: 760)
-                    windowScene.sizeRestrictions?.maximumSize = CGSize(width: 1024, height: 760)
+                    windowScene.sizeRestrictions?.minimumSize = CGSize(width: 1024, height: 820)
+                    windowScene.sizeRestrictions?.maximumSize = CGSize(width: 1024, height: 820)
                 }
-            
         }
     }
 }

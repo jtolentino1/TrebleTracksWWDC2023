@@ -249,8 +249,10 @@ struct TrebleClefView: View {
                                 .scaledToFit()
                                 .frame(width: 30, height: 30)
                                 .foregroundColor(.black)
+                                .opacity(interruptFlag ? 0.25 : 1)
                     }
                 )
+                .disabled(interruptFlag)
 
                 Button(
                     action: {

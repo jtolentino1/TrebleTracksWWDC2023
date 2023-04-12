@@ -11,32 +11,33 @@ struct ContentView: View {
     var soundPlayer = SoundPlayer()
     
     var body: some View {
-        Button(action: {
-
-            // Call play function in SoundPlayer with name of .wav file(s)
-            // soundPlayer.play(sounds: ["C4", "E4", "G4", "B4"])
-            if(soundPlayer.isPlaying == false){
-                DispatchQueue.global().async {
-                    soundPlayer.playMatrix(matrix: MusicData.swingMelodyWithChords, bpm: 150)
-                }
-            } else {
-                print("sound player is already playing..")
-            }
-            
-//            soundPlayer.playMatrix(matrix: MusicData.swingMelody, bpm: 300)
-//            soundPlayer.playMatrix(matrix: MusicData.chordTest, bpm: 130)
-        }) {
-            Text("Play")
-        }
         
-        Button(action: {
-            DispatchQueue.global().async {
-                soundPlayer.play(sounds: ["C4"])
+        TabView {
+            
+            Text("hello world")
+                .tabItem {
+                    Label("Learn", systemImage: "books.vertical")
+                }
+            
+            VStack{
+                Button(action: {
+                    DispatchQueue.global().async {
+                        soundPlayer.play(sounds: ["C4"])
+                    }
+                }) {
+                    Text("Play C4")
+                        .foregroundColor(.black)
+                }
+                
+                TrebleClefView()
             }
-        }) {
-            Text("Play C4")
+                .tabItem {
+                    Label("Create", systemImage: "pianokeys")
+                }
         }
+        .foregroundColor(.black)
+        .accentColor(.black)
+
 //        ButtonGridView()
-        TrebleClefView()
     }
 }
