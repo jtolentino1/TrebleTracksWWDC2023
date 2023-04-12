@@ -231,9 +231,9 @@ struct TrebleClefView: View {
                                 }
                             }
                             
-    //                        DispatchQueue.global(qos: .userInteractive).async {
-    //                            soundPlayer.playMatrix(matrix: MusicData.swingMelody, bpm: bpm)
-    //                        }
+                            DispatchQueue.global(qos: .userInteractive).async {
+                                soundPlayer.playMatrix(matrix: MusicData.boogieWoogieWithChords, bpm: bpm)
+                            }
                         }
                         
                         if(isPlaying){
