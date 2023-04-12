@@ -208,52 +208,50 @@ struct TrebleClefView: View {
             }
             
             .disabled(isPlaying)
+            
+            HStack(alignment: .center){
 
-            HStack {
-                Spacer()
                 Button(
                     action: {
-                        
-                        scrollViewOffset.x = 0
-                        interruptFlag = false
+                        if(!isPlaying){
+                            scrollViewOffset.x = 0
+                            interruptFlag = false
 
-                        // initializers
-                        scrollerOffset = 0
-                        scrollCounter = 1
-                        scrollViewCounter = 1
-                        isPlaying = true
-                        
-                        Timer.scheduledTimer(withTimeInterval: (Double(60000000) / Double(bpm)) / 1000000, repeats: true) { timer in
+                            // initializers
+                            scrollerOffset = 0
+                            scrollCounter = 1
+                            scrollViewCounter = 1
                             
-                            updateScrollView()
-                            // Stop the timer after it has been called 128 times or interruptFlag is true
-                            if ((scrollCounter == 128) || (interruptFlag == true)){
-                                timer.invalidate()
+                            Timer.scheduledTimer(withTimeInterval: (Double(60000000) / Double(bpm)) / 1000000, repeats: true) { timer in
+                                
+                                updateScrollView()
+                                // Stop the timer after it has been called 128 times or interruptFlag is true
+                                if ((scrollCounter == 128) || (interruptFlag == true)){
+                                    timer.invalidate()
+                                }
                             }
+                            
+    //                        DispatchQueue.global(qos: .userInteractive).async {
+    //                            soundPlayer.playMatrix(matrix: MusicData.swingMelody, bpm: bpm)
+    //                        }
                         }
                         
-//                        DispatchQueue.global(qos: .userInteractive).async {
-//                            soundPlayer.playMatrix(matrix: MusicData.swingMelody, bpm: bpm)
-//                        }
+                        if(isPlaying){
+                            interruptFlag = true
+                            soundPlayer.stop()
+                        }
+                        
+                        isPlaying.toggle()
                     },
                     label: {
-                        Image(systemName: "arrow.right")
-                            .foregroundColor(.black)
-                            .opacity(isPlaying ? 0.25 : 1)
+                            Image(systemName: !isPlaying ? "play.circle.fill" : "pause.circle.fill")
+                                .resizable()
+                                .scaledToFit()
+                                .frame(width: 30, height: 30)
+                                .foregroundColor(.black)
                     }
                 )
-                .disabled(isPlaying)
-                Button(
-                    action: {
-                        interruptFlag = true
-                        soundPlayer.stop()
-                    },
-                    label: {
-                        Image(systemName: "stop")
-                            .foregroundColor(.black)
-                            .opacity(isPlaying ? 1 : 0.25)
-                    })
-                .disabled(!isPlaying)
+
                 Button(
                     action: {
                         isPlaying = false
@@ -263,7 +261,10 @@ struct TrebleClefView: View {
                         scrollCounter = 1
                     },
                     label: {
-                        Image(systemName: "arrow.clockwise")
+                        Image(systemName: "backward.circle.fill")
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: 30, height: 30)
                             .foregroundColor(.black)
                             .opacity(!interruptFlag ? 0.25 : 1)
                     })
