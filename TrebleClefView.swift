@@ -47,7 +47,7 @@ struct TrebleClefView: View {
     @State private var scrollCounter: CGFloat = 1
     @State private var scrollable: Bool = true
     @State private var scrollViewCounter: CGFloat = 1
-    @State private var stoppedFlag: Bool = false
+    @State private var interruptFlag: Bool = false
     @State private var bpm = 300
     @State private var isPlaying: Bool = false
     
@@ -65,7 +65,7 @@ struct TrebleClefView: View {
     
     func updateScrollView() {
         if (scrollViewCounter == 1) {
-            scrollViewOffset.x += 1
+            scrollViewOffset.x += 5
         }
 
         if (scrollViewCounter.truncatingRemainder(dividingBy: 8) == 0) {
@@ -215,19 +215,19 @@ struct TrebleClefView: View {
                     action: {
                         
                         scrollViewOffset.x = 0
-                        
+                        interruptFlag = false
+
                         // initializers
                         scrollerOffset = 0
                         scrollCounter = 1
                         scrollViewCounter = 1
-                        stoppedFlag = false
                         isPlaying = true
                         
                         Timer.scheduledTimer(withTimeInterval: (Double(60000000) / Double(bpm)) / 1000000, repeats: true) { timer in
                             
                             updateScrollView()
-                            // Stop the timer after it has been called 128 times or stoppedFlag is true
-                            if ((scrollCounter == 128) || (stoppedFlag == true)){
+                            // Stop the timer after it has been called 128 times or interruptFlag is true
+                            if ((scrollCounter == 128) || (interruptFlag == true)){
                                 timer.invalidate()
                             }
                         }
@@ -239,21 +239,25 @@ struct TrebleClefView: View {
                     label: {
                         Image(systemName: "arrow.right")
                             .foregroundColor(.black)
+                            .opacity(isPlaying ? 0.25 : 1)
                     }
                 )
                 .disabled(isPlaying)
                 Button(
                     action: {
-                        stoppedFlag = true
+                        interruptFlag = true
                         soundPlayer.stop()
-                        isPlaying =
                     },
                     label: {
                         Image(systemName: "stop")
                             .foregroundColor(.black)
+                            .opacity(isPlaying ? 1 : 0.25)
                     })
+                .disabled(!isPlaying)
                 Button(
                     action: {
+                        isPlaying = false
+                        interruptFlag = false
                         scrollViewOffset.x = 0
                         scrollerOffset = 0
                         scrollCounter = 1
@@ -261,7 +265,9 @@ struct TrebleClefView: View {
                     label: {
                         Image(systemName: "arrow.clockwise")
                             .foregroundColor(.black)
+                            .opacity(!interruptFlag ? 0.25 : 1)
                     })
+                .disabled(!interruptFlag)
                 .padding(.trailing, 20)
             }
         }
