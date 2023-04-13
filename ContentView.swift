@@ -12,31 +12,7 @@ struct ContentView: View {
     
     var body: some View {
         
-        TabView {
-            
-            Text("hello world")
-                .tabItem {
-                    Label("Learn", systemImage: "books.vertical")
-                }
-            
-            VStack{
-                Button(action: {
-                    DispatchQueue.global().async {
-                        soundPlayer.play(sounds: ["C4"])
-                    }
-                }) {
-                    Text("Play C4")
-                        .foregroundColor(.black)
-                }
-                
-                TrebleClefView()
-            }
-                .tabItem {
-                    Label("Create", systemImage: "music.note.list")
-                }
-        }
-        .foregroundColor(.black)
-        .accentColor(.black)
+        PageView()
 
 //        ButtonGridView()
     }

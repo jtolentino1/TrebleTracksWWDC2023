@@ -12,14 +12,13 @@ struct PageView: View {
     @State private var currentPage = 1
     
     var body: some View {
-        NavigationView {
             VStack {
                 // Show different views based on the current page
                 if currentPage == 1 {
                     Text("Page 1")
                 } else if currentPage == 2 {
                     // Page2()
-                    Text("Page 1")
+                    Text("Page 2")
                 } else if currentPage == 3 {
                     Text("Page 3")
                 }
@@ -43,7 +42,5 @@ struct PageView: View {
                 }
                 .padding()
             }
-            .navigationTitle("Page \(currentPage)")
         }
     }
-}

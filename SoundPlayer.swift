@@ -33,7 +33,6 @@ class SoundPlayer {
     func playMatrix(matrix: [[Int]], bpm: Int) {
         let noteNames = ["C", "D", "E", "F", "G", "A", "B"]
         let lowestNoteOctave = 4
-        let highestNoteOctave = 6
         
         let session = AVAudioSession.sharedInstance()
         do {
