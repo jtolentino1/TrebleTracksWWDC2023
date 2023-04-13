@@ -32,7 +32,7 @@ struct ContentView: View {
                 TrebleClefView()
             }
                 .tabItem {
-                    Label("Create", systemImage: "pianokeys")
+                    Label("Create", systemImage: "music.note.list")
                 }
         }
         .foregroundColor(.black)
