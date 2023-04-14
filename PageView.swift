@@ -79,7 +79,7 @@ struct PageView: View {
                         .frame(width: 500)
                         .matchedGeometryEffect(id: "topTextP1", in: namespace)
                         
-                    TrebbleCleffStaffWithoutMeasures()
+                    TrebleCleffStaffWithoutMeasures()
                         .matchedGeometryEffect(id: "musicalStaffP1", in: namespace)
                         .matchedGeometryEffect(id: "musicStaffP2", in: namespace)
                     
@@ -152,7 +152,7 @@ struct PageView: View {
                         .frame(width: 500)
                         .matchedGeometryEffect(id: "topTextP33", in: namespace)
 
-                        TrebbleCleffStaffWithoutMeasuresWithBasicNotes()
+                        TrebleCleffStaffWithoutMeasuresWithBasicNotes()
                             .matchedGeometryEffect(id: "musicStaffP2", in: namespace)
                             .matchedGeometryEffect(id: "musicStaffP3", in: namespace)
 
@@ -221,7 +221,7 @@ struct PageView: View {
                     }
                     .frame(width: 500)
 
-                    TrebbleCleffStaffWithoutMeasuresWithFullNotes()
+                    TrebleCleffStaffWithoutMeasuresWithFullNotes()
                         .matchedGeometryEffect(id: "musicStaffP3", in: namespace)
                         .matchedGeometryEffect(id: "musicStaffP4", in: namespace)
                     
@@ -278,9 +278,11 @@ struct PageView: View {
                     VStack(alignment: .leading, spacing: 15){
                         Text("Now you might be thinking, how do musicians keep track of timing? 🧐⏰")
                             .matchedGeometryEffect(id: "topTextP31", in: namespace)
+                            .matchedGeometryEffect(id: "topTextP41", in: namespace)
                         
                         Text("Musicians note the timing (known as a **time signature**) with the symbol beside the treble clef. For this app playground, we have decided with a 4/4 time signature. The top 4 indicates that there are 4 beats per measure and the bottom 4 indicates that a quarter note symbolizes one beat.")
                             .matchedGeometryEffect(id: "topTextP32", in: namespace)
+                            .matchedGeometryEffect(id: "topTextP42", in: namespace)
                         
                         Text("Now that we know that, we can seperate the sheet music by **measures**, each having four beats as indicated by the time signature.")
                             .matchedGeometryEffect(id: "topTextP33", in: namespace)
@@ -289,7 +291,7 @@ struct PageView: View {
                     }
                     .frame(width: 500)
                     
-                    TrebbleCleffStafWithMeasures()
+                    TrebleCleffStafWithMeasures()
                     .matchedGeometryEffect(id: "musicStaffP4", in: namespace)
                     
                     
@@ -338,6 +340,15 @@ struct PageView: View {
                 // ========== PAGE 6 ============= //
 
                 } else if currentPage == 6 {
+                    VStack(alignment: .leading, spacing: 15){
+                        Text("Additionally, we denote how fast the music is going the played with something called **tempo**. Usually it can be written as an explicit beats per minute (bpm) value or an italian word like **allegro**.")
+                            .matchedGeometryEffect(id: "topTextP41", in: namespace)
+                        
+                        Text("The tempo tells us how many notes are played per minute. In our case, our bpm is how many quarter notes are played per minute since our time signature says that each beat is a quarter note.")
+                            .matchedGeometryEffect(id: "topTextP42", in: namespace)
+                        
+                    }
+                    .frame(width: 500)
                     
                 }
                 
