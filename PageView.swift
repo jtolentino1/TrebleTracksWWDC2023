@@ -9,7 +9,7 @@ import SwiftUI
 
 struct PageView: View {
     // Track the current page using a state variable
-    @State private var currentPage = 1
+    @State private var currentPage = 3
     @Namespace var namespace
     
     var body: some View {
@@ -39,7 +39,11 @@ struct PageView: View {
                         }
                         .buttonStyle(.borderedProminent)
                         .tint(.black)
-                        .matchedGeometryEffect(id: "nextButton", in: namespace)
+                        .matchedGeometryEffect(id: "navButton", in: namespace)
+                        .matchedGeometryEffect(id: "prev", in: namespace)
+                        .matchedGeometryEffect(id: "next", in: namespace)
+
+                        
 
                     
                 // ========== PAGE 2 ============= //
@@ -57,7 +61,7 @@ struct PageView: View {
                         .matchedGeometryEffect(id: "topTextP1", in: namespace)
                         .matchedGeometryEffect(id: "topTextP2", in: namespace)
                         
-                        TrebbleCleffStafWithoutMeasures()
+                    TrebbleCleffStaffWithoutMeasures()
                         .matchedGeometryEffect(id: "musicStaff", in: namespace)
                     
                     
@@ -68,64 +72,105 @@ struct PageView: View {
                     .frame(width: 500)
                     .matchedGeometryEffect(id: "bottomText", in: namespace)
                     
-                    Button("Next") {
-                            
-                        withAnimation(.easeInOut(duration: 0.1)){
-                            self.currentPage = 3
+                    HStack(alignment: .center, spacing: 100){
+                        Button(
+                            action: {
+                                withAnimation(.easeInOut(duration: 0.1)){
+                                    self.currentPage = 1
+                                }
+                            },
+                            label:{
+                                Image(systemName: "arrowshape.left.fill")
+                                    .resizable()
+                                    .scaledToFit()
+                                    .frame(width: 30, height: 30)
+                                    .foregroundColor(.black)
+                            })
+                        .matchedGeometryEffect(id: "prev", in: namespace)
+
+                        Button(
+                            action: {
+                                withAnimation(.easeInOut(duration: 0.1)){
+                                    self.currentPage = 3
+                                }
+                            },
+                            label:{
+                                Image(systemName: "arrowshape.right.fill")
+                                    .resizable()
+                                    .scaledToFit()
+                                    .frame(width: 30, height: 30)
+                                    .foregroundColor(.black)
+                            })
+                        .matchedGeometryEffect(id: "next", in: namespace)
+
                         }
-                            
-                    }
-                    .padding(.top, 5)
-                    .buttonStyle(.borderedProminent)
-                    .tint(.black)
-                    .matchedGeometryEffect(id: "nextButton", in: namespace)
+                    .padding(.top, 30)
+                    .matchedGeometryEffect(id: "navButton", in: namespace)
+                    
 
                 // ========== PAGE 3 ============= //
                 } else if currentPage == 3 {
                     
-                    VStack(alignment: .leading, spacing: 15){
+                        VStack(alignment: .leading, spacing: 15){
                             Text("I went ahead and placed down some notes for you. I also labeled them so you can better understand!")
                             
                             Text("As you can see, the notes either go on a space or a line on the musical staff.")
                             
+                            
                         }
                         .frame(width: 500)
                         .matchedGeometryEffect(id: "topTextP2", in: namespace)
-
-                    TrebbleCleffStafWithoutMeasures()
-                        .matchedGeometryEffect(id: "musicStaff", in: namespace)
-
                     
+                        TrebbleCleffStaffWithoutMeasuresWithBasicNotes()
+                            .matchedGeometryEffect(id: "musicStaff", in: namespace)
                     
+                        Text("However, as stated before, we are in the **treble clef**, these are not all the notes present in this musical staff!")
+                            .padding(.top, 70)
+                            .padding(.bottom, 10)
+                            .matchedGeometryEffect(id: "bottomText", in: namespace)
+                            .frame(width: 500)
+
+                        
+                    HStack(alignment: .center, spacing: 100){
+                        Button(
+                            action: {
+                                withAnimation(.easeInOut(duration: 0.1)){
+                                    self.currentPage = 2
+                                }
+                            },
+                            label:{
+                                Image(systemName: "arrowshape.left.fill")
+                                    .resizable()
+                                    .scaledToFit()
+                                    .frame(width: 30, height: 30)
+                                    .foregroundColor(.black)
+                            })
+
+                        Button(
+                            action: {
+                                withAnimation(.easeInOut(duration: 0.1)){
+                                    self.currentPage = 4
+                                }
+                            },
+                            label:{
+                                Image(systemName: "arrowshape.right.fill")
+                                    .resizable()
+                                    .scaledToFit()
+                                    .frame(width: 30, height: 30)
+                                    .foregroundColor(.black)
+                            })
+
+
+                        }
+                    .padding(.top, 30)
+                    .matchedGeometryEffect(id: "navButton", in: namespace)
+                    
+                // ========== PAGE 4 ============= //
+                } else if currentPage == 4 {
+                    Text("Hello World!")
                 }
+                
             }
         }
     }
 
-struct TrebbleCleffStafWithoutMeasures: View{
-    var body: some View{
-        HStack(spacing: 20) {
-            Image("trebleclef")
-                .resizable()
-                .scaledToFit()
-                .foregroundColor(.black)
-                .frame(width: 175, height: 175)
-                .padding(.leading, -80)
-                .id("trebleclefanchor")
-            ForEach(1...4, id: \.self) { measure in
-                VStack(alignment: .leading, spacing: 20) {
-
-                    ForEach(0..<5) { _ in
-                        Staff()
-                    }
-
-                    ZStack{
-                    }
-                }
-            }
-            .frame(width: 160, alignment: .leading)
-            .padding(.top, 18)
-            .padding(.leading, 30)
-        }
-    }
-}

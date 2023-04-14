@@ -10,17 +10,17 @@ import Foundation
 
 struct TrebleClefView: View {
     @State private var scrollViewOffset: CGPoint = .zero
+    @State private var scrollViewCounter: CGFloat = 1
+
     // in between each notes = 48
     // in between each measure = 66
     @State private var scrollerOffset: CGFloat = 0
     @State private var scrollCounter: CGFloat = 1
-    @State private var scrollable: Bool = true
-    @State private var scrollViewCounter: CGFloat = 1
-    @State private var interruptFlag: Bool = false
-    @State private var bpm = 300
-    @State private var isPlaying: Bool = false
     
-    // debugging
+    @State private var interruptFlag: Bool = false
+    @State private var isPlaying: Bool = false
+    @State private var bpm = 300
+    
     var soundPlayer = SoundPlayer()
         
     func updateScroller() {
