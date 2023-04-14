@@ -38,7 +38,7 @@ struct PageView: View {
                         .matchedGeometryEffect(id: "musicalStaffP1", in: namespace)
                         
                         Text("Ready to get started?")
-                            .padding(.vertical, 10)
+                            .padding(.vertical, 20)
                             .frame(width: 500)
                             .matchedGeometryEffect(id: "bottomText", in: namespace)
                     
