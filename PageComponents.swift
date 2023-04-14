@@ -23,8 +23,8 @@ struct TrebbleCleffStafWithMeasures: View{
                 .scaledToFit()
                 .foregroundColor(.black)
                 .frame(width: 120, height: 120)
-                .padding(.trailing, -50)
-                .padding(.leading, -60)
+                .padding(.trailing, -70)
+                .padding(.leading, -50)
             ForEach(1...4, id: \.self) { measure in
                 VStack(alignment: .leading, spacing: 20) {
                     Text("\(measure)")
@@ -43,7 +43,7 @@ struct TrebbleCleffStafWithMeasures: View{
             }
             .frame(width: 160, alignment: .leading)
             .overlay(MeasureLine())
-            .padding(.leading, 30)
+            .padding(.leading, 40)
         }
     }
 }
@@ -288,7 +288,7 @@ struct TrebbleCleffStaffWithoutMeasuresWithFullNotes: View{
     
     @State private var interruptFlag: Bool = false
     @State private var isPlaying: Bool = false
-    @State private var bpm = 150
+    @State private var bpm = 200
     
     var soundPlayer = SoundPlayer()
     
@@ -347,7 +347,7 @@ struct TrebbleCleffStaffWithoutMeasuresWithFullNotes: View{
                             scrollerOffset = 0
                             scrollCounter = 1
                             
-                            Timer.scheduledTimer(withTimeInterval: (Double(60000000) / Double(150)) / 1000000, repeats: true) { timer in
+                            Timer.scheduledTimer(withTimeInterval: (Double(60000000) / Double(bpm)) / 1000000, repeats: true) { timer in
                                 
                                 withAnimation(.easeOut(duration: (Double(60000000) / Double(bpm*8)) / 1000000)){
                                     withAnimation(.linear(duration: 0.1)){
