@@ -9,7 +9,7 @@ import SwiftUI
 
 struct PageView: View {
     // Track the current page using a state variable
-    @State private var currentPage = 4
+    @State private var currentPage = 1
     @Namespace var namespace
     
     var body: some View {
@@ -18,6 +18,16 @@ struct PageView: View {
                 // ========== PAGE 1 ============= //
                 
                 if currentPage == 1 {
+                    VStack{
+                        Text("Treble Tracks")
+                            .fontWeight(.bold)
+                            .font(.system(size: 36))
+                        
+                        Text("WWDC 2023 Submission By: Joshua Tolentino")
+                    }
+                    .padding(.vertical, 20)
+
+                    
                         VStack(alignment: .leading, spacing: 15){
                             Text("Have you ever wished you could play a beautiful melody 🎶 on an instrument 🎸 or create your own music?")
                             Text("Learning to read sheet music unlocks a whole new world of musical possibilities! It's like a secret code that tells you which notes to play, how long to hold them, and even how loud or soft to play them.")
