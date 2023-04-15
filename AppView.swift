@@ -15,16 +15,17 @@ struct AppView: App {
             PageView()
                 .frame(width: 1024, height: 760)
                 .preferredColorScheme(.light)
-
                 .onAppear {
                     guard let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene else { return }
                     windowScene.sizeRestrictions?.minimumSize = CGSize(width: 1024, height: 820)
                     windowScene.sizeRestrictions?.maximumSize = CGSize(width: 1024, height: 820)
                 }
+                .clipShape(RoundedRectangle(cornerRadius: 16))
+
             #else
             Text("This app is optimized to run as a Mac Catalyst app. Please relaunch this app as a Mac Catalyst app.")
             #endif
         }
-        
     }
+
 }
