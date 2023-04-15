@@ -392,70 +392,95 @@ struct TrebleClefViewWithSimpleMelody: View {
             
             .disabled(true)
             
-            HStack(alignment: .center){
-
-                Button(
-                    action: {
-                        if(!isPlaying){
-                            scrollViewOffset.x = 0
-                            interruptFlag = false
-
-                            // initializers
-                            scrollerOffset = 0
-                            scrollCounter = 1
-                            scrollViewCounter = 1
-                            
-                            Timer.scheduledTimer(withTimeInterval: (Double(60000000) / Double(bpm)) / 1000000, repeats: true) { timer in
+            ZStack{
+                
+                HStack{
+                    Text("BPM:")
+                    
+                    TextField("", value: $bpm, formatter: NumberFormatter(), onEditingChanged: { (isEditing) in
+                        // No need for validation here
+                    })
+                    .keyboardType(.numberPad)
+                    .padding(.leading, 2)
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 2)
+                            .stroke(Color.gray, lineWidth: 1)
+                    )
+                    .disabled(isPlaying)
+                    .frame(width: 35)
+                }
+                .onChange(of: bpm) { newValue in
+                    bpm = min(max(newValue, 100), 400)
+                }
+                .opacity( isPlaying ? 0.25 : 1)
+                .padding(.leading, -145)
+                
+                HStack{
+                    
+                    Button(
+                        action: {
+                            if(!isPlaying){
+                                scrollViewOffset.x = 0
+                                interruptFlag = false
                                 
-                                updateScrollView()
-                                // Stop the timer after it has been called 128 times or interruptFlag is true
-                                if ((scrollCounter == 57) || (interruptFlag == true)){
-                                    interruptFlag = true
-                                    timer.invalidate()
+                                // initializers
+                                scrollerOffset = 0
+                                scrollCounter = 1
+                                scrollViewCounter = 1
+                                
+                                Timer.scheduledTimer(withTimeInterval: (Double(60000000) / Double(bpm)) / 1000000, repeats: true) { timer in
+                                    
+                                    updateScrollView()
+                                    // Stop the timer after it has been called 128 times or interruptFlag is true
+                                    if ((scrollCounter == 57) || (interruptFlag == true)){
+                                        interruptFlag = true
+                                        timer.invalidate()
+                                    }
+                                }
+                                
+                                DispatchQueue.global(qos: .userInteractive).async {
+                                    soundPlayer.playMatrix(matrix: MusicData.swingMelody, bpm: bpm)
                                 }
                             }
                             
-                            DispatchQueue.global(qos: .userInteractive).async {
-                                soundPlayer.playMatrix(matrix: MusicData.swingMelody, bpm: bpm)
+                            if(isPlaying){
+                                interruptFlag = true
+                                soundPlayer.stop()
                             }
-                        }
-                        
-                        if(isPlaying){
-                            interruptFlag = true
-                            soundPlayer.stop()
-                        }
-                        
-                        isPlaying.toggle()
-                    },
-                    label: {
+                            
+                            isPlaying.toggle()
+                        },
+                        label: {
                             Image(systemName: !isPlaying ? "play.circle.fill" : "pause.circle.fill")
                                 .resizable()
                                 .scaledToFit()
                                 .frame(width: 30, height: 30)
                                 .foregroundColor(.black)
                                 .opacity(interruptFlag ? 0.25 : 1)
-                    }
-                )
-                .disabled(interruptFlag)
+                        }
+                    )
+                    .disabled(interruptFlag)
+                    
+                    Button(
+                        action: {
+                            isPlaying = false
+                            interruptFlag = false
+                            scrollViewOffset.x = 0
+                            scrollerOffset = 0
+                            scrollCounter = 1
+                        },
+                        label: {
+                            Image(systemName: "backward.circle.fill")
+                                .resizable()
+                                .scaledToFit()
+                                .frame(width: 30, height: 30)
+                                .foregroundColor(.black)
+                                .opacity(!interruptFlag ? 0.25 : 1)
+                        })
+                    .disabled(!interruptFlag)
+                    .padding(.trailing, 20)
+                }
 
-                Button(
-                    action: {
-                        isPlaying = false
-                        interruptFlag = false
-                        scrollViewOffset.x = 0
-                        scrollerOffset = 0
-                        scrollCounter = 1
-                    },
-                    label: {
-                        Image(systemName: "backward.circle.fill")
-                            .resizable()
-                            .scaledToFit()
-                            .frame(width: 30, height: 30)
-                            .foregroundColor(.black)
-                            .opacity(!interruptFlag ? 0.25 : 1)
-                    })
-                .disabled(!interruptFlag)
-                .padding(.trailing, 20)
             }
         }
         .frame(height: 280)
