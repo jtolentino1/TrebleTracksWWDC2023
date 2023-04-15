@@ -23,8 +23,10 @@ struct AppView: App {
                 .clipShape(RoundedRectangle(cornerRadius: 16))
 
             #else
-            Text("This app is optimized to run as a Mac Catalyst app. Please relaunch this app as a Mac Catalyst app.")
+            Text("This app is optimized to run as a Mac Catalyst app. Please relaunch it as a Mac Catalyst app.")
+
             #endif
+//            PageView()
         }
     }
 

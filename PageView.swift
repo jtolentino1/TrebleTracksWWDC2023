@@ -9,18 +9,18 @@ import SwiftUI
 
 struct PageView: View {
     // Track the current page using a state variable
-    @State private var currentPage = 5
+    @State private var currentPage = 1
     @Namespace var namespace
     var soundPlayer = SoundPlayer()
     
     var body: some View {
             VStack {
                 
-                // ========== PAGE 1 ============= //
+                // ============ INTRO PAGE ============= //
                 
                 if currentPage == 1 {
                     VStack(spacing: 5){
-                        Text("Treble Tracks")
+                        Text("Treble Tracks 🎼")
                             .fontWeight(.bold)
                             .font(.system(size: 36))
                         
@@ -62,17 +62,14 @@ struct PageView: View {
                         .matchedGeometryEffect(id: "next", in: namespace)
 
                         
-
+                // ============ PAGE 1 ============= //
                     
-                // ========== PAGE 2 ============= //
                 } else if currentPage == 2 {
-                    // Page2()
-                    
                     VStack(alignment: .leading, spacing: 15){
-                            Text("Now, what you see here is called a **musical staff**. It consists of **four** spaces and **five** lines.")
+                            Text("Let's start with the basics. The foundation of sheet music is a set of lines and spaces called a **musical staff**. It's made up of five lines and four spaces.")
                             .matchedGeometryEffect(id: "topTextP21", in: namespace)
                             
-                            Text("The fancy symbol you see on the left is called the **treble clef**. It notates what notes the spaces and lines symbolizes.")
+                            Text("To help us know which notes to play on the staff, we use a symbol called a **treble clef** as seen on the left side. The treble clef tells us which notes each line and space represent.")
                             .matchedGeometryEffect(id: "topTextP22", in: namespace)
                             
                         }
@@ -86,10 +83,11 @@ struct PageView: View {
                     
                     VStack(alignment: .leading, spacing: 15){
                         Text("Each space and line above symbolizes a musical note 🎵.")
-                        Text("Musical notes are denoted as alphabets. A, B, C, D, E, F, and G.")
+                            .matchedGeometryEffect(id: "bottomTextP1", in: namespace)
+
+                        Text("These notes are represented by the letters A, B, C, D, E, F, and G. Each line and space on the staff corresponds to a specific note.")
                     }
                     .frame(width: 500)
-                    .matchedGeometryEffect(id: "bottomTextP1", in: namespace)
                     
                     HStack(alignment: .center, spacing: 100){
                         Button(
@@ -135,22 +133,22 @@ struct PageView: View {
                     .matchedGeometryEffect(id: "navButton", in: namespace)
                     
 
-                // ========== PAGE 3 ============= //
+                // ============ PAGE 2 ============= //
+                    
                 } else if currentPage == 3 {
                     
                         VStack(alignment: .leading, spacing: 15){
-                            Text("I went ahead and placed down some notes for you. I also labeled them so you can better understand!")
+                            Text("Let's take a look at some actual musical notes! I've placed some **quarter notes** on the staff for you and labeled them to make things clearer.")
                                 .matchedGeometryEffect(id: "topTextP21", in: namespace)
                                 .matchedGeometryEffect(id: "topTextP31", in: namespace)
                             
-                            Text("As you can see, the notes either go on a space or a line on the musical staff. Also, each of the notes present below are called **quarter notes**, we will talk more above this later.")
-                                .matchedGeometryEffect(id: "topTextP23", in: namespace)
+                            Text("As you can see, the notes are either on a line or a space on the staff. These particular notes are all quarter notes, you will learn what this means later.")
+                                .matchedGeometryEffect(id: "topTextP22", in: namespace)
                                 .matchedGeometryEffect(id: "topTextP32", in: namespace)
                             
                             
                         }
                         .frame(width: 500)
-                        .matchedGeometryEffect(id: "topTextP33", in: namespace)
 
                         TrebleCleffStaffWithoutMeasuresWithBasicNotes()
                             .matchedGeometryEffect(id: "musicStaffP2", in: namespace)
@@ -161,7 +159,7 @@ struct PageView: View {
                             .padding(.bottom, 10)
                             .frame(width: 500)
                             .matchedGeometryEffect(id: "bottomTextP1", in: namespace)
-                            .matchedGeometryEffect(id: "bottomText2", in: namespace)
+                            .matchedGeometryEffect(id: "bottomTextP2", in: namespace)
 
                     HStack(alignment: .center, spacing: 100){
                         Button(
@@ -205,31 +203,33 @@ struct PageView: View {
                     .padding(.top, 30)
                     .matchedGeometryEffect(id: "navButton", in: namespace)
                     
-                // ========== PAGE 4 ============= //
+                // ============ PAGE 3 ============= //
                 } else if currentPage == 4 {
                     VStack(alignment: .leading, spacing: 15){
-                        Text("Here are the rest of the notes in the treble clef. As you can see, it is a wide range of notes. Since the letters are repeating, we typically number each note to uniquely identify them. ")
+                        Text("Now, let's take a look at the full range of notes in the treble clef. As you can see, there are many more notes beyond the ones we previously looked at.")
                             .matchedGeometryEffect(id: "topTextP31", in: namespace)
+                            .matchedGeometryEffect(id: "topTextP41", in: namespace)
                         
-                        Text("For example, the leftmost C in this musical staff is known as **C4** or **middle C**. The numbering increments when another C is reached. So the next C is labled **C5** and the final C is labled **C6** and each note in between follows that number D4, E4, etc.")
+                        
+                        Text("Some of these notes are located outside of the staff, such as the leftmost C and D notes, as well as the final G, A, B, and C notes. To notate these notes, we use additional lines called **ledger lines** to extend the staff. By using ledger lines, musicians can easily identify notes outside the staff.")
                             .matchedGeometryEffect(id: "topTextP32", in: namespace)
-                        
-                        Text("Additionally, there are notes that are placed outside the five main lines of the musical staff. These notes are marked with lines that are called **ledger lines** to easily determine them.")
-                            .matchedGeometryEffect(id: "topTextP33", in: namespace)
+                            .matchedGeometryEffect(id: "topTextP42", in: namespace)
                         
                         
                     }
                     .frame(width: 500)
-
+                    
                     TrebleCleffStaffWithoutMeasuresWithFullNotes()
                         .matchedGeometryEffect(id: "musicStaffP3", in: namespace)
                         .matchedGeometryEffect(id: "musicStaffP4", in: namespace)
                     
                     Text("Feel free to press the play button above the hear the notes! 🎶")
-                        .padding(.top, 70)
-                        .padding(.bottom, 10)
                         .frame(width: 500)
-                        .matchedGeometryEffect(id: "bottomText2", in: namespace)
+                        .padding(.bottom, 10)
+                        .padding(.top, 70)
+                        .matchedGeometryEffect(id: "bottomTextP2", in: namespace)
+                        .matchedGeometryEffect(id: "bottomTextP3", in: namespace)
+
                 HStack(alignment: .center, spacing: 100){
                     Button(
                         action: {
@@ -271,38 +271,107 @@ struct PageView: View {
                     }
                 .padding(.top, 30)
                 .matchedGeometryEffect(id: "navButton", in: namespace)
-                
-                // ========== PAGE 5 ============= //
-                } else if currentPage == 5 {
                     
+                // ============ PAGE 4 ============= //
+                } else if currentPage == 5 {
                     VStack(alignment: .leading, spacing: 15){
-                        Text("Now you might be thinking, how do musicians keep track of timing? 🧐⏰")
-                            .matchedGeometryEffect(id: "topTextP31", in: namespace)
+                        Text("You may have noticed that some notes on the staff have the same letter but sound different when played. To avoid confusion, musicians use a system of numbering to distinguish each note.")
                             .matchedGeometryEffect(id: "topTextP41", in: namespace)
+                            .matchedGeometryEffect(id: "topTextP51", in: namespace)
                         
-                        Text("Musicians note the timing (known as a **time signature**) with the symbol beside the treble clef. For this app playground, we have decided with a 4/4 time signature. The top 4 indicates that there are 4 beats per measure and the bottom 4 indicates that a quarter note symbolizes one beat.")
-                            .matchedGeometryEffect(id: "topTextP32", in: namespace)
+                        Text("For example, the leftmost C note in the treble clef is known as **middle C** or **C4**. The following notes are labeled with a 4 (D4, E4, F4, etc.) until the next C is reached, at which point the number is incremented to 5 (C5, D5, E5, and so on).")
                             .matchedGeometryEffect(id: "topTextP42", in: namespace)
+                            .matchedGeometryEffect(id: "topTextP52", in: namespace)
                         
-                        Text("Now that we know that, we can seperate the sheet music by **measures**, each having four beats as indicated by the time signature.")
-                            .matchedGeometryEffect(id: "topTextP33", in: namespace)
+                        
+                    }
+                    .frame(width: 500)
+
+                    TrebleCleffStaffWithoutMeasuresWithFullNotesNoPlay()
+                        .matchedGeometryEffect(id: "musicStaffP4", in: namespace)
+                        .matchedGeometryEffect(id: "musicStaffP5", in: namespace)
+                    
+                    Text("By labeling each note with a specific number, musicians can easily identify and play the correct note, no matter its position on the staff.")
+                        .padding(.bottom, 10)
+                        .frame(width: 500)
+                        .matchedGeometryEffect(id: "bottomTextP3", in: namespace)
+                        .matchedGeometryEffect(id: "bottomTextP4", in: namespace)
+                    
+                HStack(alignment: .center, spacing: 100){
+                    Button(
+                        action: {
+                            DispatchQueue.global(qos: .userInteractive).async {
+                                soundPlayer.play(sounds:["F4"])
+                            }
+                            withAnimation(.easeInOut(duration: 0.1)){
+                                self.currentPage = 4
+                            }
+                        },
+                        label:{
+                            Image(systemName: "arrowshape.left.fill")
+                                .resizable()
+                                .scaledToFit()
+                                .frame(width: 30, height: 30)
+                                .foregroundColor(.black)
+                        })
+                    
+                    Text("\(currentPage-1)")
+
+                    Button(
+                        action: {
+                            DispatchQueue.global(qos: .userInteractive).async {
+                                soundPlayer.play(sounds:["G4"])
+                            }
+                            withAnimation(.easeInOut(duration: 0.1)){
+                                self.currentPage = 6
+                            }
+                        },
+                        label:{
+                            Image(systemName: "arrowshape.right.fill")
+                                .resizable()
+                                .scaledToFit()
+                                .frame(width: 30, height: 30)
+                                .foregroundColor(.black)
+                        })
+
+
+                    }
+                .padding(.top, 30)
+                .matchedGeometryEffect(id: "navButton", in: namespace)
+
+                
+                // ============ PAGE 5 ============= //
+                } else if currentPage == 6 {
+                    VStack(alignment: .leading, spacing: 15){
+                        Text("You may be wondering how musicians keep track of timing ⏳ when playing sheet music. The answer lies in the **time signature**, which is indicated by a symbol next to the treble clef.")
+                            .matchedGeometryEffect(id: "topTextP51", in: namespace)
+                            .matchedGeometryEffect(id: "topTextP61", in: namespace)
+                        
+                        Text("For this app, we've decided to use a 4/4 time signature. The top number (4) indicates that there are four beats per measure, while the bottom number (also 4) signifies that a quarter note symbolizes one beat.")
+                            .matchedGeometryEffect(id: "topTextP52", in: namespace)
+                            .matchedGeometryEffect(id: "topTextP62", in: namespace)
+                        
+                        Text("With this information, we can divide the sheet music into **measures**, with each measure consisting of four beats (four quarter notes) as indicated by the time signature.")
+                            .matchedGeometryEffect(id: "bottomTextP4", in: namespace)
+
+                            .matchedGeometryEffect(id: "bottomTextP6", in: namespace)
                         
                         
                     }
                     .frame(width: 500)
                     
-                    TrebleCleffStafWithMeasures()
+                    TrebleCleffStaffWithMeasures()
                     .matchedGeometryEffect(id: "musicStaffP4", in: namespace)
-                    
+                    .matchedGeometryEffect(id: "musicStaffP5", in: namespace)
                     
                     HStack(alignment: .center, spacing: 100){
                         Button(
                             action: {
                                 DispatchQueue.global(qos: .userInteractive).async {
-                                    soundPlayer.play(sounds:["F4"])
+                                    soundPlayer.play(sounds:["G4"])
                                 }
                                 withAnimation(.easeInOut(duration: 0.1)){
-                                    self.currentPage = 4
+                                    self.currentPage = 5
                                 }
                             },
                             label:{
@@ -318,10 +387,10 @@ struct PageView: View {
                         Button(
                             action: {
                                 DispatchQueue.global(qos: .userInteractive).async {
-                                    soundPlayer.play(sounds:["G4"])
+                                    soundPlayer.play(sounds:["A4"])
                                 }
                                 withAnimation(.easeInOut(duration: 0.1)){
-                                    self.currentPage = 6
+                                    self.currentPage = 7
                                 }
                             },
                             label:{
@@ -336,19 +405,158 @@ struct PageView: View {
                         }
                     .padding(.top, 30)
                     .matchedGeometryEffect(id: "navButton", in: namespace)
-                
-                // ========== PAGE 6 ============= //
-
-                } else if currentPage == 6 {
+                    
+                // ============ PAGE 6 ============= //
+                } else if currentPage == 7 {
                     VStack(alignment: .leading, spacing: 15){
-                        Text("Additionally, we denote how fast the music is going the played with something called **tempo**. Usually it can be written as an explicit beats per minute (bpm) value or an italian word like **allegro**.")
-                            .matchedGeometryEffect(id: "topTextP41", in: namespace)
+                        Text("In addition to the time signature, another important aspect of sheet music is the **tempo**. This can be expressed as a beats per minute (bpm) value or an Italian word like allegro.")
+                            .matchedGeometryEffect(id: "topTextP61", in: namespace)
                         
-                        Text("The tempo tells us how many notes are played per minute. In our case, our bpm is how many quarter notes are played per minute since our time signature says that each beat is a quarter note.")
-                            .matchedGeometryEffect(id: "topTextP42", in: namespace)
+                        Text("The tempo indicates how many notes are played per minute. In our case, since our time signature specifies that each beat is a quarter note, the bpm corresponds to how many quarter notes are played per minute. With that said, feel free to mess around with the bpm text box to change the speed. ⏱️")
+                            .matchedGeometryEffect(id: "topTextP62", in: namespace)
                         
                     }
                     .frame(width: 500)
+                    
+                    TrebleClefViewWithSimpleMelody()
+                    .matchedGeometryEffect(id: "musicStaffP5", in: namespace)
+                    
+                    Text("With all that said, I went ahead and wrote a simple tune. Press play above to hear it! 🔈")
+                        .frame(width: 500)
+                        .padding(.top,25)
+                        .matchedGeometryEffect(id: "bottomTextP6", in: namespace)
+                    
+                    HStack(alignment: .center, spacing: 100){
+                        Button(
+                            action: {
+                                DispatchQueue.global(qos: .userInteractive).async {
+                                    soundPlayer.play(sounds:["A4"])
+                                }
+                                withAnimation(.easeInOut(duration: 0.1)){
+                                    self.currentPage = 6
+                                }
+                            },
+                            label:{
+                                Image(systemName: "arrowshape.left.fill")
+                                    .resizable()
+                                    .scaledToFit()
+                                    .frame(width: 30, height: 30)
+                                    .foregroundColor(.black)
+                            })
+                        
+                        Text("\(currentPage-1)")
+
+                        Button(
+                            action: {
+                                DispatchQueue.global(qos: .userInteractive).async {
+                                    soundPlayer.play(sounds:["B4"])
+                                }
+                                withAnimation(.easeInOut(duration: 0.1)){
+                                    self.currentPage = 8
+                                }
+                            },
+                            label:{
+                                Image(systemName: "arrowshape.right.fill")
+                                    .resizable()
+                                    .scaledToFit()
+                                    .frame(width: 30, height: 30)
+                                    .foregroundColor(.black)
+                            })
+
+
+                        }
+                    .padding(.top, 30)
+                    .matchedGeometryEffect(id: "navButton", in: namespace)
+                                        
+                // ============ PAGE 7 ============= //
+                } else if currentPage == 8 {
+                    
+                    HStack(alignment: .center, spacing: 100){
+                        Button(
+                            action: {
+                                DispatchQueue.global(qos: .userInteractive).async {
+                                    soundPlayer.play(sounds:["B4"])
+                                }
+                                withAnimation(.easeInOut(duration: 0.1)){
+                                    self.currentPage = 7
+                                }
+                            },
+                            label:{
+                                Image(systemName: "arrowshape.left.fill")
+                                    .resizable()
+                                    .scaledToFit()
+                                    .frame(width: 30, height: 30)
+                                    .foregroundColor(.black)
+                            })
+                        
+                        Text("\(currentPage-1)")
+
+                        Button(
+                            action: {
+                                DispatchQueue.global(qos: .userInteractive).async {
+                                    soundPlayer.play(sounds:["C5"])
+                                }
+                                withAnimation(.easeInOut(duration: 0.1)){
+                                    self.currentPage = 9
+                                }
+                            },
+                            label:{
+                                Image(systemName: "arrowshape.right.fill")
+                                    .resizable()
+                                    .scaledToFit()
+                                    .frame(width: 30, height: 30)
+                                    .foregroundColor(.black)
+                            })
+
+
+                        }
+                    .padding(.top, 30)
+                    .matchedGeometryEffect(id: "navButton", in: namespace)
+                    
+                // ============ PAGE 8 ============= //
+                } else if currentPage == 9 {
+                    
+                    HStack(alignment: .center, spacing: 100){
+                        Button(
+                            action: {
+                                DispatchQueue.global(qos: .userInteractive).async {
+                                    soundPlayer.play(sounds:["B4"])
+                                }
+                                withAnimation(.easeInOut(duration: 0.1)){
+                                    self.currentPage = 7
+                                }
+                            },
+                            label:{
+                                Image(systemName: "arrowshape.left.fill")
+                                    .resizable()
+                                    .scaledToFit()
+                                    .frame(width: 30, height: 30)
+                                    .foregroundColor(.black)
+                            })
+                        
+                        Text("\(currentPage-1)")
+
+                        Button(
+                            action: {
+                                DispatchQueue.global(qos: .userInteractive).async {
+                                    soundPlayer.play(sounds:["C5"])
+                                }
+                                withAnimation(.easeInOut(duration: 0.1)){
+                                    self.currentPage = 9
+                                }
+                            },
+                            label:{
+                                Image(systemName: "arrowshape.right.fill")
+                                    .resizable()
+                                    .scaledToFit()
+                                    .frame(width: 30, height: 30)
+                                    .foregroundColor(.black)
+                            })
+
+
+                        }
+                    .padding(.top, 30)
+                    .matchedGeometryEffect(id: "navButton", in: namespace)
                     
                 }
                 
