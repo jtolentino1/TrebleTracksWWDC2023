@@ -9,7 +9,7 @@ import SwiftUI
 
 struct PageView: View {
     // Track the current page using a state variable
-    @State private var currentPage = 8
+    @State private var currentPage = 1
     @Namespace var namespace
     var soundPlayer = SoundPlayer()
     
@@ -421,7 +421,7 @@ struct PageView: View {
                     TrebleClefViewWithSimpleMelody()
                     .matchedGeometryEffect(id: "musicStaffP5", in: namespace)
                     
-                    Text("With all that said, I went ahead and wrote a simple tune. Press play above to hear it! 🔈")
+                    Text("I went ahead and wrote a simple tune. Press play above to hear it! 🔈")
                         .frame(width: 500)
                         .padding(.top,25)
                         .matchedGeometryEffect(id: "bottomTextP6", in: namespace)
