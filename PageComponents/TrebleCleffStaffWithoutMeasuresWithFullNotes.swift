@@ -77,12 +77,13 @@ struct TrebleCleffStaffWithoutMeasuresWithFullNotes: View{
                             Timer.scheduledTimer(withTimeInterval: (Double(60000000) / Double(bpm)) / 1000000, repeats: true) { timer in
                                 
                                 withAnimation(.easeOut(duration: (Double(60000000) / Double(bpm*8)) / 1000000)){
-                                    withAnimation(.linear(duration: 0.1)){
+                                    withAnimation(.linear(duration: 0.05)){
                                         updateScroller()
                                     }
                                 }
                                 
                                 if ((scrollCounter == 15) || (interruptFlag == true)){
+                                    isPlaying = false
                                     interruptFlag = true
                                     timer.invalidate()
                                 }

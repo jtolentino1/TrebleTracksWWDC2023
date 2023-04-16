@@ -9,7 +9,7 @@ import SwiftUI
 
 struct PageView: View {
     // Track the current page using a state variable
-    @State private var currentPage = 7
+    @State private var currentPage = 8
     @Namespace var namespace
     var soundPlayer = SoundPlayer()
     
@@ -409,10 +409,10 @@ struct PageView: View {
                 // ============ PAGE 6 ============= //
                 } else if currentPage == 7 {
                     VStack(alignment: .leading, spacing: 15){
-                        Text("In addition to the time signature, another important aspect of sheet music is the **tempo**. This can be expressed as a beats per minute (bpm) value or an Italian word like allegro.")
+                        Text("In addition to the time signature, another important aspect of sheet music is the **tempo**. This can be expressed as a **beats per minute** (bpm) value or an Italian word like **allegro**.")
                             .matchedGeometryEffect(id: "topTextP61", in: namespace)
                         
-                        Text("The tempo indicates how many notes are played per minute. In our case, since our time signature specifies that each beat is a quarter note, the bpm corresponds to how many quarter notes are played per minute. With that said, feel free to mess around with the bpm text box to change the speed. ⏱️")
+                        Text("The tempo indicates how many notes are played per minute. In our case, since our time signature specifies that each beat is a quarter note, the bpm corresponds to how many quarter notes are played per minute. With that said, feel free to mess around with the bpm text box to change the tempo. ⏱️")
                             .matchedGeometryEffect(id: "topTextP62", in: namespace)
                         
                     }
@@ -470,6 +470,8 @@ struct PageView: View {
                                         
                 // ============ PAGE 7 ============= //
                 } else if currentPage == 8 {
+                    
+                    TrebleClefBoogieWoogie()
                     
                     HStack(alignment: .center, spacing: 100){
                         Button(

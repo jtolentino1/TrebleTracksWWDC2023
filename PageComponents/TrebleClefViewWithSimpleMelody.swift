@@ -430,9 +430,11 @@ struct TrebleClefViewWithSimpleMelody: View {
                                 
                                 Timer.scheduledTimer(withTimeInterval: (Double(60000000) / Double(bpm)) / 1000000, repeats: true) { timer in
                                     
+                                    
                                     updateScrollView()
                                     // Stop the timer after it has been called 128 times or interruptFlag is true
                                     if ((scrollCounter == 57) || (interruptFlag == true)){
+                                        isPlaying = false
                                         interruptFlag = true
                                         timer.invalidate()
                                     }
