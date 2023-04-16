@@ -14,3 +14,9 @@ I utilized Apple's SwiftUI and AVFoundation framework to create the app. I also 
 Just simply clone this repo, open in XCode, set the target to Mac Catalyst and run!
 
 ### Showcase
+
+![1](https://github.com/jtolentino1/TrebleTracksWWDC2023/blob/main/ShowcaseImages/1.png)
+
+![2](https://github.com/jtolentino1/TrebleTracksWWDC2023/blob/main/ShowcaseImages/2.png)
+
+![3](https://github.com/jtolentino1/TrebleTracksWWDC2023/blob/main/ShowcaseImages/3.png)
