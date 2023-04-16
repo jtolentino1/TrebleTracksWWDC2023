@@ -9,7 +9,7 @@ import SwiftUI
 
 struct PageView: View {
     // Track the current page using a state variable
-    @State private var currentPage = 1
+    @State private var currentPage = 9
     @Namespace var namespace
     var soundPlayer = SoundPlayer()
     
@@ -155,11 +155,11 @@ struct PageView: View {
                             .matchedGeometryEffect(id: "musicStaffP3", in: namespace)
 
                         Text("However, as stated before, we are in the **treble clef**, these are not all the notes present in this musical staff!")
-                            .padding(.top, 70)
-                            .padding(.bottom, 10)
                             .frame(width: 500)
                             .matchedGeometryEffect(id: "bottomTextP1", in: namespace)
                             .matchedGeometryEffect(id: "bottomTextP2", in: namespace)
+                            .padding(.top, 70)
+                            .padding(.bottom, 10)
 
                     HStack(alignment: .center, spacing: 100){
                         Button(
@@ -225,10 +225,10 @@ struct PageView: View {
                     
                     Text("Feel free to press the play button above the hear the notes! 🎶")
                         .frame(width: 500)
-                        .padding(.bottom, 10)
-                        .padding(.top, 70)
                         .matchedGeometryEffect(id: "bottomTextP2", in: namespace)
                         .matchedGeometryEffect(id: "bottomTextP3", in: namespace)
+                        .padding(.bottom, 10)
+                        .padding(.top, 70)
 
                 HStack(alignment: .center, spacing: 100){
                     Button(
@@ -411,20 +411,24 @@ struct PageView: View {
                     VStack(alignment: .leading, spacing: 15){
                         Text("In addition to the time signature, another important aspect of sheet music is the **tempo**. This can be expressed as a **beats per minute** (bpm) value or an Italian word like **allegro**.")
                             .matchedGeometryEffect(id: "topTextP61", in: namespace)
+                            .matchedGeometryEffect(id: "topTextP71", in: namespace)
                         
                         Text("The tempo indicates how many notes are played per minute. In our case, since our time signature specifies that each beat is a quarter note, the bpm corresponds to how many quarter notes are played per minute. With that said, feel free to mess around with the bpm text box to change the tempo. ⏱️")
                             .matchedGeometryEffect(id: "topTextP62", in: namespace)
+                            .matchedGeometryEffect(id: "topTextP72", in: namespace)
                         
                     }
                     .frame(width: 500)
                     
                     TrebleClefViewWithSimpleMelody()
                     .matchedGeometryEffect(id: "musicStaffP5", in: namespace)
+                    .matchedGeometryEffect(id: "musicStaffP6", in: namespace)
                     
-                    Text("I went ahead and wrote a simple tune. Press play above to hear it! 🔈")
+                    Text("Press play above to listen to the tune! 🔈")
                         .frame(width: 500)
                         .padding(.top,25)
                         .matchedGeometryEffect(id: "bottomTextP6", in: namespace)
+                        .matchedGeometryEffect(id: "bottomTextP7", in: namespace)
                     
                     HStack(alignment: .center, spacing: 100){
                         Button(
@@ -471,7 +475,25 @@ struct PageView: View {
                 // ============ PAGE 7 ============= //
                 } else if currentPage == 8 {
                     
+                    VStack(alignment: .leading, spacing: 15){
+                        Text("In sheet music, when multiple notes are displayed on the same line (beat), it's called a **chord**. This means that the musician plays all of the notes simultaneously.")
+                            .matchedGeometryEffect(id: "topTextP71", in: namespace)
+                            .matchedGeometryEffect(id: "topTextP81", in: namespace)
+
+                        
+                    }
+                    .frame(width: 500)
+                    .matchedGeometryEffect(id: "topTextP82", in: namespace)
+                    
                     TrebleClefBoogieWoogie()
+                        .matchedGeometryEffect(id: "musicStaffP6", in: namespace)
+                    
+                    Text("Now that you know what a chord is, take a listen to this fun and upbeat boogie woogie tune!")
+                        .frame(width: 500)
+                        .matchedGeometryEffect(id: "bottomTextP7", in: namespace)
+                        .matchedGeometryEffect(id: "bottomTextP8", in: namespace)
+
+                        .padding(.top,25)
                     
                     HStack(alignment: .center, spacing: 100){
                         Button(
@@ -518,6 +540,28 @@ struct PageView: View {
                 // ============ PAGE 8 ============= //
                 } else if currentPage == 9 {
                     
+                    VStack(alignment: .leading, spacing: 15){
+                        Text("Congratulations, you've learned the basics of how to read sheet music! However, this is just the tip of the iceberg when it comes to music theory. There is so much more to explore, including **accidentals** (sharps, flats, and naturals), **dynamics** (how loud or soft to play), **different keys** (major and minor), and different types of notes (whole notes, half notes, eighth notes, etc).")
+                            .matchedGeometryEffect(id: "topTextP81", in: namespace)
+                        Text("Music theory is a vast and fascinating field that has been studied for centuries. It helps musicians understand how music works and how to create their own compositions. So keep exploring, keep learning, and keep making beautiful music!")
+                            .matchedGeometryEffect(id: "topTextP82", in: namespace)
+
+                    }
+                    .frame(width: 500)
+                    .matchedGeometryEffect(id: "topTextP1", in: namespace)
+                    .matchedGeometryEffect(id: "musicalStaffP1", in: namespace)
+                    
+                    VStack(alignment: .leading, spacing: 20){
+                        Text("Thank you!")
+                            .fontWeight(.bold)
+                            .font(.system(size: 24))
+                        
+                    }
+                    .matchedGeometryEffect(id: "bottomTextP8", in: namespace)
+                    
+                    .padding(.trailing, 50)
+                    .padding(.top, 25)
+                    
                     HStack(alignment: .center, spacing: 100){
                         Button(
                             action: {
@@ -525,7 +569,7 @@ struct PageView: View {
                                     soundPlayer.play(sounds:["B4"])
                                 }
                                 withAnimation(.easeInOut(duration: 0.1)){
-                                    self.currentPage = 7
+                                    self.currentPage = 8
                                 }
                             },
                             label:{
@@ -537,24 +581,19 @@ struct PageView: View {
                             })
                         
                         Text("\(currentPage-1)")
-
-                        Button(
-                            action: {
+                        
+                        Button("Restart") {
+                            withAnimation(.easeInOut(duration: 0.1)){
+                                self.currentPage = 1
                                 DispatchQueue.global(qos: .userInteractive).async {
-                                    soundPlayer.play(sounds:["C5"])
+                                    soundPlayer.play(sounds:["C4","G4","E4","B4"])
                                 }
-                                withAnimation(.easeInOut(duration: 0.1)){
-                                    self.currentPage = 9
-                                }
-                            },
-                            label:{
-                                Image(systemName: "arrowshape.right.fill")
-                                    .resizable()
-                                    .scaledToFit()
-                                    .frame(width: 30, height: 30)
-                                    .foregroundColor(.black)
-                            })
-
+                            }
+                        }
+                        .buttonStyle(.borderedProminent)
+                        .tint(.black)
+                        .matchedGeometryEffect(id: "prev", in: namespace)
+                        .matchedGeometryEffect(id: "next", in: namespace)
 
                         }
                     .padding(.top, 30)
