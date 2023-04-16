@@ -80,7 +80,6 @@ struct PageView: View {
                         .matchedGeometryEffect(id: "musicalStaffP1", in: namespace)
                         .matchedGeometryEffect(id: "musicStaffP2", in: namespace)
                     
-                    
                     VStack(alignment: .leading, spacing: 15){
                         Text("Each space and line above symbolizes a musical note 🎵.")
                             .matchedGeometryEffect(id: "bottomTextP1", in: namespace)
@@ -541,9 +540,9 @@ struct PageView: View {
                 } else if currentPage == 9 {
                     
                     VStack(alignment: .leading, spacing: 15){
-                        Text("Congratulations, you've learned the basics of how to read sheet music! However, this is just the tip of the iceberg when it comes to music theory. There is so much more to explore, including **accidentals** (sharps, flats, and naturals), **dynamics** (how loud or soft to play), **different keys** (major and minor), and different types of notes (whole notes, half notes, eighth notes, etc).")
+                        Text("Congratulations 🥳🎉, you've learned the basics of how to read sheet music! However, this is just the tip of the iceberg when it comes to music theory. There is so much more to explore, including **accidentals** (sharps, flats, and naturals), **dynamics** (how loud or soft to play), **different keys** (major and minor), and different types of notes (whole notes, half notes, eighth notes, etc).")
                             .matchedGeometryEffect(id: "topTextP81", in: namespace)
-                        Text("Music theory is a vast and fascinating field that has been studied for centuries. It helps musicians understand how music works and how to create their own compositions. So keep exploring, keep learning, and keep making beautiful music!")
+                        Text("Music theory is a vast and fascinating field that has been studied for centuries. 📚 It helps musicians understand how music works and how to create their own compositions. So keep exploring, keep learning, and keep making beautiful music!")
                             .matchedGeometryEffect(id: "topTextP82", in: namespace)
 
                     }
