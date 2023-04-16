@@ -9,7 +9,7 @@ import SwiftUI
 
 struct PageView: View {
     // Track the current page using a state variable
-    @State private var currentPage = 9
+    @State private var currentPage = 1
     @Namespace var namespace
     var soundPlayer = SoundPlayer()
     
