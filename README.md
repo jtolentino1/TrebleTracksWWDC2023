@@ -1,4 +1,4 @@
-# TrebleTracksWWDC2023
+# Treble Tracks - WWDC2023 Student Challenge
 
 
 ## About 
